@@ -1,0 +1,9 @@
+#!/usr/bin/env coffee
+Jira = require '../lib/jira'
+App = require '../lib/app'
+config = require '../../config'
+
+jira = new Jira config.jira.url
+app = new App jira, config.port
+
+app.start()

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html ng-app="progress">
+  <head>
+    <meta charset="utf-8">
+    <title>Project Progress</title>
+
+    <script src="progress.js"></script>
+
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+
+    <style type="text/css" media="all">
+      body { padding: 1.25em; }
+      h1 { font-size: 3em; margin: 0 0 1.25em 0; color: #2c3e50; }
+      .version { width: 100%; }
+      .version td { padding: 1em; font-size: 2em; font-weight: bold;
+        border-top: 1px solid #ecf0f1; vertical-align: top; }
+      .version tr:first-child td { padding-top: 0; border-top: none; }
+      .version td:first-child { padding-left: 0; }
+      .version td:last-child { padding-right: 0; }
+      .epic-name { width: 25%; color: #34495e; }
+      .issue-resolved { color: #27ae60; }
+      .issue-unresolved { color: #7f8c8d; }
+      .issue-resolved, .issue-unresolved { display: inline-block; width: 1em;
+        padding: 0.1em; margin: 0.25em; text-align: center; }
+    </style>
+    <style type="text/css" media="print">
+      body { width: 42cm; }
+    </style>
+  </head>
+
+  <body>
+    <div ng-view></div>
+
+    <script type="text/ng-template" id="projectList">
+      <h1>Projects</h1>
+      <ul>
+        <li ng-repeat="project in projects">
+          <a href="#/projects/{{project.key}}">{{project.name}}</a>
+        </li>
+      </ul>
+    </script>
+
+    <script type="text/ng-template" id="projectVersionList">
+      <h1>{{project.name}} Versions</h1>
+      <ul>
+        <li ng-repeat="version in project.versions">
+          <a href="#/projects/{{project.key}}/versions/{{version.id}}">
+            {{version.name}}
+          </a>
+        </li>
+      </ul>
+    </script>
+
+    <script type="text/ng-template" id="projectVersionDashboard">
+      <h1>{{project.name}} {{version.name}} Progress, {{date}}</h1>
+      <table class="version">
+        <tr ng-repeat="(id, epic) in version.epics">
+          <td class="epic-name">{{epic.name}}</td>
+          <td class="epic-punchcard"><span class="issue-resolved" ng-repeat="i in epic.resolved">✔</span><span class="issue-unresolved" ng-repeat="i in epic.unresolved">⦁</span></td>
+        </tr>
+      </table>
+    </script>
+  </body>
+</html>

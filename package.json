@@ -1,0 +1,33 @@
+{
+  "name": "progress",
+  "version": "0.1.0",
+  "description": "A project progress dashboard for Jira",
+  "author": {
+    "name": "Ben Godfrey",
+    "email": "bpgodfrey@gmail.com"
+  },
+  "bin": {
+    "progress": "./app/bin/progress.coffee"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "coffeeify": "~0.6.0",
+    "browserify": "~4.1.10",
+    "napa": "~0.4.1"
+  },
+  "dependencies": {
+    "lodash": "~2.4.1",
+    "express": "~4.4.3",
+    "q": "~1.0.1",
+    "request": "~2.36.0",
+    "moment": "~2.7.0",
+    "morgan": "~1.1.1"
+  },
+  "scripts": {
+    "install": "napa"
+  },
+  "napa": {
+    "angular": "angular/bower-angular",
+    "angular-route": "angular/bower-angular-route"
+  }
+}
