@@ -12,6 +12,10 @@
     <style type="text/css" media="all">
       body { padding: 1.25em; }
       h1 { font-size: 3em; margin: 0 0 1.25em 0; color: #2c3e50; }
+      .error-title { margin: 0 0 0.5em 0; }
+      .error-detail { border: 1px solid #fdc; border-radius: 5px;
+        background-color: #fff6f6; padding: 1em; color: #c0392b;
+        white-space: pre; }
       .version { width: 100%; }
       .version td { padding: 1em; font-size: 2em; font-weight: bold;
         border-top: 1px solid #ecf0f1; vertical-align: top; }
@@ -30,7 +34,14 @@
   </head>
 
   <body>
-    <div ng-view></div>
+    <div class="error" ng-if="error">
+      <h1 class="error-title">Error</h1>
+      <div class="error-detail">{{error}}</div>
+    </div>
+
+    <div ng-if="!error">
+      <div ng-view></div>
+    </div>
 
     <script type="text/ng-template" id="projectList">
       <h1>Projects</h1>

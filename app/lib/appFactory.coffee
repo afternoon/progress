@@ -5,6 +5,7 @@ progressData = require './progressData'
 
 errorHandlerFactory = (res) ->
   (response) ->
+    console.error response
     res.json response.statusCode, response.body.errorMessages
 
 appFactory =

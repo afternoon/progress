@@ -10,6 +10,11 @@ app = angular.module 'progress', ['ngRoute']
 
 projectDataFactory.build(app, baseUrl)
 
+prettyPrint = (obj) -> JSON.stringify obj, null, '    '
+
+handleError = ($scope) ->
+  (error) -> $scope.$root.error = prettyPrint error
+
 app.config ($routeProvider) ->
   $routeProvider
     .when '/projects',
@@ -29,8 +34,10 @@ app.controller 'projectListCtrl', [
   ($scope, projectData) ->
     projectData
       .projects()
-      .then (projects) ->
-        $scope.projects = projects
+      .then(
+        (projects) -> $scope.projects = projects
+        handleError($scope)
+      )
 ]
 
 app.controller 'projectVersionListCtrl', [
@@ -40,8 +47,10 @@ app.controller 'projectVersionListCtrl', [
   ($scope, $routeParams, projectData) ->
     projectData
       .project $routeParams.projectKey
-      .then (project) ->
-        $scope.project = project
+      .then(
+        (project) -> $scope.project = project
+        handleError($scope)
+      )
 ]
 
 app.controller 'projectVersionDashboardCtrl', [
@@ -56,6 +65,8 @@ app.controller 'projectVersionDashboardCtrl', [
         $scope.project = project
         projectData
           .version $routeParams.projectKey, $routeParams.versionId
-          .then (version) ->
-            $scope.version = version
+      .then(
+        (version) -> $scope.version = version
+        handleError($scope)
+      )
 ]
